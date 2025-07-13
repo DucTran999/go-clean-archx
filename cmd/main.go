@@ -37,12 +37,17 @@ func main() {
 	productCtrl := controller.NewProductController(productUC)
 
 	// Init router
-	r := gin.Default()
-	r.POST("/products", productCtrl.CreateProduct)
+	router := gin.Default()
+	router.POST("/products", productCtrl.CreateProduct)
 
 	// Start server
-	addr := net.JoinHostPort(os.Getenv("HOST"), os.Getenv("PORT"))
-	if err := r.Run(addr); err != nil {
+	host := os.Getenv("HOST")
+	port := os.Getenv("PORT")
+	if host == "" || port == "" {
+		log.Fatal("HOST and PORT environment variables are required")
+	}
+	addr := net.JoinHostPort(host, port)
+	if err := router.Run(addr); err != nil {
 		log.Fatalf("failed to run server: %v", err)
 	}
 }
