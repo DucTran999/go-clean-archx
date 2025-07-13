@@ -24,23 +24,6 @@ services:
       retries: 5
       start_period: 10s
 
-  redis:
-    image: redis:7.2.4-alpine
-    container_name: ${SERVICE_ENV}_redis_${SERVICE_NAME}
-    env_file:
-      - .env
-    ports:
-      - "127.0.0.1:${REDIS_PORT}:6379"
-    networks:
-      - localnet
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
-
   migrate:
     image: migrate/migrate
     container_name: ${SERVICE_ENV}_migrate_${SERVICE_NAME}
