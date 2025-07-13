@@ -1,0 +1,39 @@
+version: "2"
+
+run:
+  concurrency: 4
+  timeout: 10m
+  go: "1.24.5"
+
+issues:
+  max-issues-per-linter: 0 # No limit per linter
+  max-same-issues: 0 # No limit on repeated issues
+
+linters:
+  default: all # Enable all linters to catch issues proactively
+  disable:
+    #  Disable linters that are noisy, stylistic, or unnecessary for early-stage projects
+    - funlen # Warns on long functions — acceptable in handlers/usecases
+    - lll # Line length check — often noisy and IDE handles wrapping
+    - nestif # Warns on deep nested ifs — tolerable in some business logic
+    - dupl # Warns on duplicate code — can create false positives in tests
+    - dogsled # Warns on multiple blank identifiers (_) — often used in mocks/tests
+    - nolintlint # Forces explanation for `//nolint` — strict, not always needed
+    - testpackage # Enforces using a different package for tests — too strict
+    - testableexamples # Warns if example tests are missing — rare use
+    - testifylint # Lints how you use testify — can conflict with common patterns
+    - nakedret # Warns on naked returns — stylistic, not critical
+    - misspell # Catches spelling errors — can false flag non-English
+    - mnd # Warns on magic numbers — noisy if not properly scoped
+    - exhaustive # Requires exhaustive switch case — useful but verbose for simple enums
+    - gochecknoglobals # Forbids global variables — too strict for config/constants
+    - gochecknoinits # Forbids `init()` — common for DI or tool setup (e.g., wire)
+    - gocognit # Warns on function complexity — already covered by gocyclo
+    - cyclop # Similar to gocognit — redundant
+    - wsl # Whitespace linter — stylistic
+    - wrapcheck # Forces wrapped errors — not always needed in internal apps
+    - zerologlint # Applies only if using zerolog — skip if not used
+    - errname # Forces specific error variable naming — cosmetic
+    - godot # Enforces period at end of comments — stylistic
+    - godox # Flags TODO/FIXME without context — can be noisy
+
