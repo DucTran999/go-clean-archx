@@ -36,4 +36,30 @@ linters:
     - errname # Forces specific error variable naming — cosmetic
     - godot # Enforces period at end of comments — stylistic
     - godox # Flags TODO/FIXME without context — can be noisy
+    - tagalign # Align tags
+    - ireturn # return interface prefer for clean architecture
+    - exhaustruct # Enforces struct fields to be ordered by name — useful for clean architecture
+    - nlreturn
 
+  settings:
+    depguard:
+      rules:
+        main:
+          # Defines package matching behavior. Available modes:
+          # - `original`: allowed if it doesn't match the deny list and either matches the allow list or the allow list is empty.
+          # - `strict`: allowed only if it matches the allow list and either doesn't match the deny list or the allow rule is more specific (longer) than the deny rule.
+          # - `lax`: allowed if it doesn't match the deny list or the allow rule is more specific (longer) than the deny rule.
+          # Default: "original"
+          list-mode: lax
+          # List of file globs that will match this list of settings to compare against.
+          # By default, if a path is relative, it is relative to the directory where the golangci-lint command is executed.
+          # The placeholder '${base-path}' is substituted with a path relative to the mode defined with `run.relative-path-mode`.
+          # The placeholder '${config-path}' is substituted with a path relative to the configuration file.
+          # Default: $all
+          files:
+            - "!**/*_a _file.go"
+          # List of allowed packages.
+          # Entries can be a variable (starting with $), a string prefix, or an exact match (if ending with $).
+          # Default: []
+          allow:
+            - $gostd
