@@ -33,3 +33,12 @@ run: ## start the app locally
 deps: ## install library for generating mocks and merge code coverage
 	go install github.com/vektra/mockery/v3@v3.4.0
 	go install github.com/wadey/gocovmerge@latest
+
+unit_test: ## Run all unit tests with coverage and save report to test/coverage/
+	mkdir -p test/coverage
+	go test -v -coverprofile=test/coverage/coverage.out ./internal/...
+	go tool cover -func=test/coverage/coverage.out
+	go tool cover -html=test/coverage/coverage.out -o test/coverage/coverage.html
+
+mock: ## generate mock
+	mockery

@@ -32,9 +32,6 @@ type Product struct {
 	UpdatedAt *time.Time `gorm:"type:timestamp with time zone;autoUpdateTime" json:"updatedAt,omitempty"`
 }
 
-// TableName explicit product schema in database
-func (p *Product) TableName() string { return "products" }
-
 // IsValid validates the product fields against business rules.
 func (p *Product) IsValid() error {
 	if p.Name == "" {
