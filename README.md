@@ -37,7 +37,7 @@ This project is an example implementation of [Clean Architecture](https://8thlig
 ## 📁 Project Structure
 
 ```sh
-go-clean-arch/
+go-clean-archx/
 ├── .github/workflows/     # GitHub Actions CI
 │
 ├── cmd/                   # App entry point (DI container, HTTP server)
