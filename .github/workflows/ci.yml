@@ -26,3 +26,32 @@ jobs:
         with:
           args: --timeout 5m --config .golangci.yml
           version: v2.1.6
+
+  test-coverage:
+    name: codecov-report
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Install Dependencies
+        run: make deps
+
+      - name: Tidy Modules
+        run: go mod tidy
+
+      - name: Run unit test
+        run: make unit_test
+
+      - name: Run Coverage
+        run: make coverage
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v5
+        continue-on-error: true
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
