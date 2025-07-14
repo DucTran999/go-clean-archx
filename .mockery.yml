@@ -1,0 +1,19 @@
+all: true
+dir: "test/mocks"
+force-file-write: true
+filename: "{{.InterfaceName}}_mock.go"
+formatter: goimports
+log-level: info
+structname: "{{.InterfaceName}}"
+pkgname: "mocks"
+recursive: true
+require-template-schema-exists: true
+template: testify
+template-schema: "{{.Template}}.schema.json"
+
+exclude-subpkg-regex: ["gen", "handler"]
+
+packages:
+  github.com/DucTran999/go-clean-archx/internal:
+    config:
+      all: true
