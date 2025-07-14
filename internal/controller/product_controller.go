@@ -26,14 +26,17 @@ func NewProductController(productUC port.ProductUsecase) *ProductController {
 
 // CreateProduct handles POST /products requests.
 func (hdl *ProductController) CreateProduct(ctx *gin.Context) {
-	var input dto.CreateProductInput
+	var payload CreateProductRequest
 
-	if err := ctx.ShouldBindJSON(&input); err != nil {
-		JSONResponse(ctx, http.StatusBadRequest, APIResponse{
-			Message: "invalid request payload",
-			Error:   err.Error(),
-		})
+	if err := ctx.ShouldBindJSON(&payload); err != nil {
+		JSONBadRequestResponse(ctx, "invalid request payload", err)
 		return
+	}
+
+	input := dto.CreateProductInput{
+		Name:  payload.Name,
+		Qty:   payload.Qty,
+		Price: payload.Price,
 	}
 
 	created, err := hdl.productUC.CreateProduct(ctx.Request.Context(), input)

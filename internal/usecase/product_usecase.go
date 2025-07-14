@@ -33,7 +33,11 @@ func (uc *productUsecase) CreateProduct(ctx context.Context, input dto.CreatePro
 		Price: input.Price,
 	}
 
-	// Validate domain rules
+	// Validate domain rules.
+	// Although the incoming request is already validated via binding in the controller (e.g., ShouldBindJSON),
+	// it's still good practice to validate critical business rules in this layer.
+	// This ensures data integrity regardless of the delivery mechanism — such as gRPC, CLI, or tests —
+	// which may bypass HTTP-level validation.
 	if err := product.IsValid(); err != nil {
 		return nil, fmt.Errorf("product is invalid: %w", err)
 	}
