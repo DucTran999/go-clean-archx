@@ -48,7 +48,7 @@ go-clean-archx/
 │   ├── repository/        # Database adapters (e.g. GORM)
 │   └── port/              # Interfaces between layers
 │
-├── configs/               # Config files (env, yaml)
+├── migraions/             # Database schema migrations
 ├── test/                  # Test data, mocks, builders, coverage
 │
 ├── Makefile               # Developer commands
@@ -105,5 +105,3 @@ make codecov
 ## 📝 License
 
 This project is licensed under the terms of the [MIT License](./LICENSE).
-
----
