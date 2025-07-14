@@ -1,6 +1,7 @@
 package repository_test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/DucTran999/go-clean-archx/internal/entity"
@@ -59,5 +60,37 @@ func TestProductRepo_CreateFailed(t *testing.T) {
 
 	// Assert
 	assert.ErrorIs(t, err, datatest.ErrUnexpectedDB)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestProductRepo_CreateSuccess(t *testing.T) {
+	t.Parallel()
+
+	// Arrange
+	db, mock := newMockDB(t)
+	repo := repository.NewProductRepository(db)
+
+	product := &entity.Product{
+		Name:  "Test Product",
+		Qty:   10,
+		Price: 99.99,
+	}
+
+	mock.ExpectBegin()
+	mock.ExpectQuery(`INSERT INTO "products"`).
+		WithArgs(
+			product.Name,
+			product.Qty,
+			product.Price,
+			sqlmock.AnyArg(),
+		).
+		WillReturnRows(sqlmock.NewRows([]string{"id"}).AddRow(datatest.FakeProductID))
+	mock.ExpectCommit()
+
+	// Act
+	err := repo.Create(context.Background(), product)
+
+	// Assert
+	assert.NoError(t, err)
 	assert.NoError(t, mock.ExpectationsWereMet())
 }
