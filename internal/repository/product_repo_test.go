@@ -1,7 +1,6 @@
 package repository_test
 
 import (
-	"context"
 	"testing"
 
 	"github.com/DucTran999/go-clean-archx/internal/entity"
@@ -88,7 +87,7 @@ func TestProductRepo_CreateSuccess(t *testing.T) {
 	mock.ExpectCommit()
 
 	// Act
-	err := repo.Create(context.Background(), product)
+	err := repo.Create(t.Context(), product)
 
 	// Assert
 	assert.NoError(t, err)
