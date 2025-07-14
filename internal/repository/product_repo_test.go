@@ -15,6 +15,7 @@ import (
 )
 
 func newMockDB(t *testing.T) (*gorm.DB, sqlmock.Sqlmock) {
+	t.Helper()
 	db, mock, err := sqlmock.New()
 	assert.NoError(t, err)
 

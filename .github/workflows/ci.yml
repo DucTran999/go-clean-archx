@@ -48,7 +48,7 @@ jobs:
         run: make unit_test
 
       - name: Run Coverage
-        run: make coverage
+        run: make codecov
 
       - name: Upload to Codecov
         uses: codecov/codecov-action@v5

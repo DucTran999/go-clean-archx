@@ -67,7 +67,7 @@ func (b *ProductUsecaseBuilder) CreateProductSuccess() *ProductUsecaseBuilder {
 	return b
 }
 
-// CreateProductErrorDB configures the mock to simulate a database failure during product creation.
+// CreateProductReturnErrDB configures the mock to simulate a database failure during product creation.
 func (b *ProductUsecaseBuilder) CreateProductReturnErrDB() *ProductUsecaseBuilder {
 	b.instance.EXPECT().
 		CreateProduct(mock.Anything, mock.AnythingOfType("dto.CreateProductInput")).

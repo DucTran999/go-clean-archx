@@ -38,6 +38,7 @@ func TestProductController_CreateProduct(t *testing.T) {
 				return payload
 			},
 			setupUT: func(t *testing.T) *controller.ProductController {
+				t.Helper()
 				productUC := mockbuilder.NewProductUsecaseBuilder(t).CreateProductSuccess().Build()
 				return controller.NewProductController(productUC)
 			},
@@ -57,6 +58,7 @@ func TestProductController_CreateProduct(t *testing.T) {
 				return payload
 			},
 			setupUT: func(t *testing.T) *controller.ProductController {
+				t.Helper()
 				productUC := mockbuilder.NewProductUsecaseBuilder(t).CreateProductReturnsInvalidPrice().Build()
 				return controller.NewProductController(productUC)
 			},
@@ -75,6 +77,7 @@ func TestProductController_CreateProduct(t *testing.T) {
 				return payload
 			},
 			setupUT: func(t *testing.T) *controller.ProductController {
+				t.Helper()
 				productUC := mockbuilder.NewProductUsecaseBuilder(t).Build()
 				return controller.NewProductController(productUC)
 			},
@@ -94,6 +97,7 @@ func TestProductController_CreateProduct(t *testing.T) {
 				return payload
 			},
 			setupUT: func(t *testing.T) *controller.ProductController {
+				t.Helper()
 				productUC := mockbuilder.NewProductUsecaseBuilder(t).CreateProductReturnErrDB().Build()
 				return controller.NewProductController(productUC)
 			},
