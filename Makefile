@@ -1,5 +1,4 @@
-PKG_SCRIPTS=scripts
-
+.PHONY: default help lint up down run deps
 default: help
 
 help: ## Show help for each of the Makefile commands
