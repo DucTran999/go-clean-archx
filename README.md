@@ -25,6 +25,7 @@ This project is an example implementation of [Clean Architecture](https://8thlig
 ## 👨‍💻 My Thoughts
 
 - **Clean Architecture = separation of concerns + dependency inversion**
+- Read more at: https://medium.com/@tranaduc9x/clean-architecture-in-go-289eb371200b
 
 ---
 
@@ -88,6 +89,8 @@ make up
 make run
 ```
 
+---
+
 ## 🧪 Running Tests
 
 This project uses table-driven tests with mocks for unit testing.
@@ -101,6 +104,8 @@ Check code coverage (must run after **make unit_test**)
 ```bash
 make codecov
 ```
+
+---
 
 ## 📝 License
 
