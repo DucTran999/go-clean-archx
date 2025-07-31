@@ -39,7 +39,7 @@ func (uc *productUsecase) CreateProduct(ctx context.Context, input dto.CreatePro
 	// This ensures data integrity regardless of the delivery mechanism — such as gRPC, CLI, or tests —
 	// which may bypass HTTP-level validation.
 	if err := product.IsValid(); err != nil {
-		return nil, fmt.Errorf("product is invalid: %w", err)
+		return nil, fmt.Errorf("product validation failed: %w", err)
 	}
 
 	// Persist the new product
