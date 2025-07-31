@@ -42,7 +42,7 @@ func (b *ProductUsecaseBuilder) Build() port.ProductUsecase {
 func (b *ProductUsecaseBuilder) CreateProductReturnsInvalidPrice() *ProductUsecaseBuilder {
 	b.instance.EXPECT().
 		CreateProduct(mock.Anything, mock.AnythingOfType("dto.CreateProductInput")).
-		Return(nil, entity.ErrInvalidPrice)
+		Return(nil, entity.ErrProductInvalid)
 
 	return b
 }
