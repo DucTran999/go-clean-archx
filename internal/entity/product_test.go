@@ -63,7 +63,7 @@ func TestProduct_IsValid(t *testing.T) {
 			err := tc.product.IsValid()
 
 			// Assert: check the result against the expected error
-			require.Equal(t, err, tc.expectedErr)
+			require.ErrorIs(t, err, tc.expectedErr)
 		})
 	}
 }
