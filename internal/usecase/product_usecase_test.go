@@ -38,7 +38,7 @@ func TestCreateProduct(t *testing.T) {
 				mRepo := mockbuilder.NewProductRepoBuilder(t).Build()
 				return usecase.NewProductUsecase(mRepo)
 			},
-			expectedErr: entity.ErrInvalidPrice,
+			expectedErr: entity.ErrProductInvalid,
 		},
 		{
 			name:  "failed cause db error",

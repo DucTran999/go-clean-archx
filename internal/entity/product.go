@@ -5,21 +5,19 @@ package entity
 
 import (
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
 )
 
-var (
-	// ErrEmptyName is returned when the product name is empty.
-	ErrEmptyName = errors.New("product name cannot be empty")
-
-	// ErrQtyNegative is returned when the quantity is less than 0.
-	ErrQtyNegative = errors.New("product quantity cannot be negative")
-
-	// ErrInvalidPrice is returned when the product price is not greater than 0.
-	ErrInvalidPrice = errors.New("product price must be greater than 0")
-)
+// ErrProductInvalid is a reusable error for any kind of invalid product.
+// Instead of defining many specific error variables, we wrap this
+// with descriptive context using fmt.Errorf and %w.
+// This keeps the error surface small and maintainable,
+// supports errors.Is() checks,
+// and helps make tests more robust and less brittle.
+var ErrProductInvalid = errors.New("invalid product")
 
 // Product represents a product in the system with its attributes.
 // It is a core domain entity and should be free of infrastructure-specific concerns.
@@ -35,13 +33,13 @@ type Product struct {
 // IsValid validates the product fields against business rules.
 func (p *Product) IsValid() error {
 	if p.Name == "" {
-		return ErrEmptyName
+		return fmt.Errorf("%w: name cannot be empty", ErrProductInvalid)
 	}
 	if p.Qty < 0 {
-		return ErrQtyNegative
+		return fmt.Errorf("%w: quantity must be non-negative", ErrProductInvalid)
 	}
 	if p.Price <= 0 {
-		return ErrInvalidPrice
+		return fmt.Errorf("%w: price must be greater than zero", ErrProductInvalid)
 	}
 
 	return nil

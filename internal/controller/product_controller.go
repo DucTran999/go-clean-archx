@@ -41,7 +41,7 @@ func (hdl *ProductController) CreateProduct(ctx *gin.Context) {
 
 	created, err := hdl.productUC.CreateProduct(ctx.Request.Context(), input)
 	if err != nil {
-		if isClientError(err) {
+		if errors.Is(err, entity.ErrProductInvalid) {
 			JSONBadRequestResponse(ctx, "validation failed", err)
 		} else {
 			log.Printf("[ERROR] op=create_product, err=%v", err)
@@ -54,10 +54,4 @@ func (hdl *ProductController) CreateProduct(ctx *gin.Context) {
 		Message: "product created successfully",
 		Data:    gin.H{"id": created.ID.String()},
 	})
-}
-
-func isClientError(err error) bool {
-	return errors.Is(err, entity.ErrEmptyName) ||
-		errors.Is(err, entity.ErrInvalidPrice) ||
-		errors.Is(err, entity.ErrQtyNegative)
 }
